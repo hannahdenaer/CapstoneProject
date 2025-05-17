@@ -8,18 +8,24 @@
 import SwiftUI
 
 struct WantToReadView: View {
+    @State private var newWantToRead = false
     var body: some View {
         VStack {
             HStack {
                 Text ("Want to Read List:")
                 Spacer ()
                 Button("+") {
-                    /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+                    withAnimation {
+                        newWantToRead = true
+                    }
                 }
+                
             }
-        
+            .padding ()
         }
-        .padding ()
+        if newWantToRead {
+            NewWantToRead()
+        }
     }
 }
 

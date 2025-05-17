@@ -8,16 +8,23 @@
 import SwiftUI
 
 struct AlreadyRead: View {
+    @State private var newAlreadyRead = false
     var body: some View {
         VStack {
             HStack {
                 Text ("Already Read List:")
                 Spacer ()
                 Button("+") {
-                    /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+                    withAnimation {
+                        newAlreadyRead = true
+                    }
                 }
+                
             }
-            . padding ()
+            .padding ()
+        }
+        if newAlreadyRead {
+            NewAlreadyRead()
         }
     }
 }
