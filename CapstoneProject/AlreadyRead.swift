@@ -11,6 +11,7 @@ import SwiftData
 struct AlreadyRead: View {
     @State private var newAlreadyRead = false
     @Query var haveReads: [AlreadyReadItem]
+    @Environment(\.modelContext) var modelContext
     var body: some View {
         VStack {
             HStack {
@@ -28,10 +29,17 @@ struct AlreadyRead: View {
                 ForEach(haveReads) { AlreadyReadItem in
                     Text(AlreadyReadItem.title)
                 }
+                .onDelete(perform: deleteHaveReads)
             }
         }
         if newAlreadyRead {
             NewAlreadyRead(newAlreadyRead: $newAlreadyRead, alreadyReadItem: AlreadyReadItem(title: ""))
+        }
+    }
+    func deleteHaveReads(at offsets: IndexSet) {
+        for offset in offsets {
+            let alreadyReadItem = haveReads[offset]
+            modelContext.delete(alreadyReadItem)
         }
     }
 }
