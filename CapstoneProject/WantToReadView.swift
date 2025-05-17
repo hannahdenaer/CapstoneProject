@@ -11,6 +11,7 @@ import SwiftData
 struct WantToReadView: View {
     @State private var newWantToRead = false
     @Query var toReads: [WantToReadItem]
+    @Environment(\.modelContext) var modelContext
     var body: some View {
         VStack {
             HStack {
@@ -29,10 +30,17 @@ struct WantToReadView: View {
                 ForEach (toReads) { WantToReadItem in
                     Text(WantToReadItem.title)
                 }
+                .onDelete(perform: deleteToReads)
             }
         }
             if newWantToRead {
                 NewWantToRead (newWantToRead: $newWantToRead, wantToReadItem: WantToReadItem(title: ""))
+        }
+    }
+    func deleteToReads (at offsets :IndexSet) {
+        for offset in offsets {
+            let wantToReadItem = toReads [offset]
+            modelContext.delete(wantToReadItem)
         }
     }
 }
