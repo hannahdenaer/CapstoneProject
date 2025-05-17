@@ -6,29 +6,38 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct NewWantToRead: View {
+    @Binding var newWantToRead: Bool
+    @Bindable var wantToReadItem: WantToReadItem
+    @Environment(\.modelContext) var modelContext
     var body: some View {
         VStack {
             Text("New Book Title:")
                 .font(.title)
                 .fontWeight(.bold)
             
-            TextField("Enter book title...", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+            TextField("Enter book title...", text: $wantToReadItem.title)
                 .padding ()
                 .background(Color(.systemGroupedBackground))
                 .cornerRadius(15)
                 .padding ()
             
             Button("Save") {
-                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+                addToRead()
+                newWantToRead = false
             }
 
 
         }
     }
+    func addToRead() {
+        let toRead = WantToReadItem(title: wantToReadItem.title)
+        modelContext.insert(toRead)
+    }
 }
 
 #Preview {
-    NewWantToRead()
+    NewWantToRead(newWantToRead: .constant (false), wantToReadItem: WantToReadItem(title: ""))
 }

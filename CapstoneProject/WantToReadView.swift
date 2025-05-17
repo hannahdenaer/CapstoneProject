@@ -32,11 +32,12 @@ struct WantToReadView: View {
             }
         }
             if newWantToRead {
-            NewWantToRead ()
+                NewWantToRead (newWantToRead: $newWantToRead, wantToReadItem: WantToReadItem(title: ""))
         }
     }
 }
 
 #Preview {
-                WantToReadView ()
+        WantToReadView ()
+        .modelContainer(for: WantToReadItem.self, inMemory: true)
 }
