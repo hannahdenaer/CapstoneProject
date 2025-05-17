@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AlreadyRead: View {
     @State private var newAlreadyRead = false
+    @Query var haveReads: [AlreadyReadItem]
     var body: some View {
         VStack {
             HStack {
@@ -21,14 +23,20 @@ struct AlreadyRead: View {
                 }
             }
             .padding ()
+            Spacer ()
+            List {
+                ForEach(haveReads) { AlreadyReadItem in
+                    Text(AlreadyReadItem.title)
+                }
+            }
         }
-        Spacer ()
         if newAlreadyRead {
-            NewAlreadyRead()
+            NewAlreadyRead(newAlreadyRead: $newAlreadyRead, alreadyReadItem: AlreadyReadItem(title: ""))
         }
     }
 }
 
 #Preview {
     AlreadyRead()
+        .modelContainer(for: AlreadyReadItem.self, inMemory: true)
 }

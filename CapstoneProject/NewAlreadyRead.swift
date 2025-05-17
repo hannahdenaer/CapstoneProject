@@ -8,25 +8,33 @@
 import SwiftUI
 
 struct NewAlreadyRead: View {
+    @Binding var newAlreadyRead: Bool
+    @Bindable var alreadyReadItem: AlreadyReadItem
+    @Environment(\.modelContext) var modelContext
     var body: some View {
         VStack {
             Text("New Book Title:")
                 .font(.title)
                 .fontWeight(.bold)
             
-            TextField("Enter the book title...", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+            TextField("Enter the book title...", text: $alreadyReadItem.title)
                 .padding ()
                 .background(Color(.systemGroupedBackground))
                 .cornerRadius(15)
                 .padding ()
             
             Button("Save") {
-                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+                addHaveReads ()
+                newAlreadyRead = false
             }
         }
+    }
+    func addHaveReads() {
+        let haveReads = AlreadyReadItem(title: alreadyReadItem.title)
+        modelContext.insert(haveReads)
     }
 }
 
 #Preview {
-    NewAlreadyRead()
+    NewAlreadyRead(newAlreadyRead: .constant(false), alreadyReadItem: AlreadyReadItem(title: ""))
 }

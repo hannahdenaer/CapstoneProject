@@ -14,6 +14,7 @@ struct CapstoneProjectApp: App {
         WindowGroup {
             ContentView()
                 .modelContainer(for: WantToReadItem.self)
+                .modelContainer(for: AlreadyReadItem.self)
         }
     }
 }
