@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct WantToReadView: View {
     @State private var newWantToRead = false
+    @Query var toReads: [WantToReadItem]
     var body: some View {
         VStack {
             HStack {
@@ -22,13 +24,19 @@ struct WantToReadView: View {
                 
             }
             .padding ()
+            Spacer ()
+            List {
+                ForEach (toReads) { WantToReadItem in
+                    Text(WantToReadItem.title)
+                }
+            }
         }
-        if newWantToRead {
-            NewWantToRead()
+            if newWantToRead {
+            NewWantToRead ()
         }
     }
 }
 
 #Preview {
-    WantToReadView()
+                WantToReadView ()
 }

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var showNewBook = false
     var body: some View {
         ZStack {
             Color(.systemMint)

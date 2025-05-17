@@ -19,10 +19,10 @@ struct AlreadyRead: View {
                         newAlreadyRead = true
                     }
                 }
-                
             }
             .padding ()
         }
+        Spacer ()
         if newAlreadyRead {
             NewAlreadyRead()
         }
