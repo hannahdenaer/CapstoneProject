@@ -8,17 +8,31 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showNewBook = false
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack {
+            Color(.systemMint)
+                .ignoresSafeArea()
+            NavigationStack {
+                VStack (spacing: 25) {
+                    Text ("bookworm📚")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .italic()
+
+                    
+                    NavigationLink(destination: WantToReadView()) {
+                        Text("Want to read!")
+            }
+                    NavigationLink(destination: AlreadyRead ()) {
+                            Text("Already read!")
+                        }
+                }
         }
-        .padding()
+            .padding()
+        }
     }
 }
-
-#Preview {
-    ContentView()
-}
+    #Preview {
+        ContentView()
+    }
